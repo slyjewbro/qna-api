@@ -4,13 +4,14 @@ import (
 	"qna-api/internal/model"
 )
 
-func (r *Repository) GetAll() ([]model.Question, error) {
+// Методы для вопросов
+func (r *Repository) GetAllQuestions() ([]model.Question, error) {
 	var questions []model.Question
 	result := r.db.Find(&questions)
 	return questions, result.Error
 }
 
-func (r *Repository) GetByID(id int) (*model.Question, error) {
+func (r *Repository) GetQuestionByID(id int) (*model.Question, error) {
 	var question model.Question
 	result := r.db.Preload("Answers").First(&question, id)
 	if result.Error != nil {
@@ -19,12 +20,12 @@ func (r *Repository) GetByID(id int) (*model.Question, error) {
 	return &question, nil
 }
 
-func (r *Repository) Create(question *model.Question) error {
+func (r *Repository) CreateQuestion(question *model.Question) error {
 	result := r.db.Create(question)
 	return result.Error
 }
 
-func (r *Repository) Delete(id int) error {
+func (r *Repository) DeleteQuestion(id int) error {
 	result := r.db.Delete(&model.Question{}, id)
 	return result.Error
 }

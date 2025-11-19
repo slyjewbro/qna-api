@@ -6,11 +6,11 @@ import (
 )
 
 func (s *Service) GetAllQuestions() ([]model.Question, error) {
-	return s.repo.GetAll()
+	return s.repo.GetAllQuestions()
 }
 
 func (s *Service) GetQuestion(id int) (*model.Question, error) {
-	return s.repo.GetByID(id)
+	return s.repo.GetQuestionByID(id)
 }
 
 func (s *Service) CreateQuestion(req model.CreateQuestionRequest) (*model.Question, error) {
@@ -19,7 +19,7 @@ func (s *Service) CreateQuestion(req model.CreateQuestionRequest) (*model.Questi
 		CreatedAt: time.Now(),
 	}
 
-	if err := s.repo.Create(question); err != nil {
+	if err := s.repo.CreateQuestion(question); err != nil {
 		return nil, err
 	}
 
@@ -27,5 +27,5 @@ func (s *Service) CreateQuestion(req model.CreateQuestionRequest) (*model.Questi
 }
 
 func (s *Service) DeleteQuestion(id int) error {
-	return s.repo.Delete(id)
+	return s.repo.DeleteQuestion(id)
 }

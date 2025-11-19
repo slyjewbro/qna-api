@@ -13,7 +13,7 @@ func (s *Service) CreateAnswer(questionID int, req model.CreateAnswerRequest) (*
 		CreatedAt:  time.Now(),
 	}
 
-	if err := s.repo.Create(answer); err != nil {
+	if err := s.repo.CreateAnswer(answer); err != nil {
 		return nil, err
 	}
 
@@ -21,9 +21,9 @@ func (s *Service) CreateAnswer(questionID int, req model.CreateAnswerRequest) (*
 }
 
 func (s *Service) GetAnswer(id int) (*model.Answer, error) {
-	return s.repo.GetByID(id)
+	return s.repo.GetAnswerByID(id)
 }
 
 func (s *Service) DeleteAnswer(id int) error {
-	return s.repo.Delete(id)
+	return s.repo.DeleteAnswer(id)
 }

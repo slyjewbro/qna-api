@@ -14,16 +14,18 @@ func NewRepository(db *gorm.DB) *Repository {
 	return &Repository{db: db}
 }
 
+// Интерфейсы вопросов
 type IQuestionRepository interface {
-	GetAll() ([]model.Question, error)
-	GetByID(id int) (*model.Question, error)
-	Create(question *model.Question) error
-	Delete(id int) error
+	GetAllQuestions() ([]model.Question, error)
+	GetQuestionByID(id int) (*model.Question, error)
+	CreateQuestion(question *model.Question) error
+	DeleteQuestion(id int) error
 }
 
+// Интерфейсы ответов
 type IAnswerRepository interface {
-	Create(answer *model.Answer) error
-	GetByID(id int) (*model.Answer, error)
-	GetByQuestionID(questionID int) ([]model.Answer, error)
-	Delete(id int) error
+	CreateAnswer(answer *model.Answer) error
+	GetAnswerByID(id int) (*model.Answer, error)
+	GetAnswersByQuestionID(questionID int) ([]model.Answer, error)
+	DeleteAnswer(id int) error
 }
