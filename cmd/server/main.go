@@ -15,7 +15,6 @@ import (
 )
 
 func main() {
-	// Load configuration
 	cfg := config.Load()
 
 	// Initialize database
@@ -30,8 +29,8 @@ func main() {
 	}
 
 	// Initialize layers
-	repo := repository.NewRepository(db)
-	svc := service.NewService(repo)
+	repo := repository.NewRepository(db) // Возвращает RepositoryInterface
+	svc := service.NewService(repo)      // Принимает RepositoryInterface
 	h := handler.NewHandler(svc)
 
 	// Setup routes

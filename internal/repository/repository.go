@@ -10,7 +10,8 @@ type Repository struct {
 	db *gorm.DB
 }
 
-func NewRepository(db *gorm.DB) *Repository {
+// NewRepository создает новый репозиторий
+func NewRepository(db *gorm.DB) RepositoryInterface { // Возвращаем интерфейс
 	return &Repository{db: db}
 }
 

@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   app:
     build: .
@@ -14,8 +12,6 @@ services:
       - SERVER_PORT=8080
     depends_on:
       - db
-    volumes:
-      - ./migrations:/app/migrations
     command: ["./wait-for.sh", "db:5432", "--", "./main"]
 
   db:
@@ -39,9 +35,7 @@ services:
       - DB_USER=postgres
       - DB_PASSWORD=password
       - DB_NAME=qna_db
-    volumes:
-      - ./migrations:/app/migrations
-    command: ["sh", "-c", "sleep 10 && go install github.com/pressly/goose/v3/cmd/goose@latest && goose -dir migrations postgres \"user=postgres password=password dbname=qna_db host=db sslmode=disable\" up"]
+    command: ["./wait-for.sh", "db:5432", "--", "go", "run", "cmd/migrate/main.go", "up"]
 
 volumes:
   postgres_data:
