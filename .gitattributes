@@ -1,0 +1,22 @@
+# Установить поведение по умолчанию для всех файлов
+* text=auto
+
+# Явно указать файлы, которые должны быть с LF
+*.sh text eol=lf
+*.go text eol=lf
+*.md text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.json text eol=lf
+*.sql text eol=lf
+
+# Бинарные файлы
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+
+# Исполняемые скрипты должны иметь LF
+wait-for.sh text eol=lf

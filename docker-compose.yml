@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=password
+      - DB_NAME=qna_db
+      - SERVER_PORT=8080
+    depends_on:
+      - db
+    volumes:
+      - ./migrations:/app/migrations
+    command: ["./wait-for.sh", "db:5432", "--", "./main"]
+
+  db:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=qna_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  migration:
+    build: .
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=password
+      - DB_NAME=qna_db
+    volumes:
+      - ./migrations:/app/migrations
+    command: ["sh", "-c", "sleep 10 && go install github.com/pressly/goose/v3/cmd/goose@latest && goose -dir migrations postgres \"user=postgres password=password dbname=qna_db host=db sslmode=disable\" up"]
+
+volumes:
+  postgres_data:
