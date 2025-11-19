@@ -26,12 +26,12 @@ API-сервис для вопросов и ответов на Go с испол
 ### Запуск
 
 1. Клонируйте репозиторий:
-```bash
+bash
 git clone <repository-url>
 cd qna-api
 2. Запустите приложение:
 
-```bash
+bash
 docker-compose up --build
 Приложение будет доступно по адресу: http://localhost:8080
 Примеры запросов
